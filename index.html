@@ -4,211 +4,235 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hidden Minang - Discover West Sumatra</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .bg-maroon { background-color: #581c1c; }
-        .text-maroon { color: #581c1c; }
-        .border-maroon { border-color: #581c1c; }
-        #map { height: 400px; width: 100%; border-radius: 0.75rem; }
+        /* Custom Fonts & Colors */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Merriweather', serif; }
+        .bg-maroon { background-color: #7a1c1c; }
+        .text-maroon { color: #7a1c1c; }
+        .border-maroon { border-color: #7a1c1c; }
+        .hover-maroon:hover { background-color: #5d1111; }
+        
+        #map { height: 400px; width: 100%; border-radius: 0.75rem; z-index: 10;}
+        
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+        
+        /* Hide scrollbar for culinary section */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-amber-50/30 text-gray-800">
+<body class="bg-[#f8f5f1] text-gray-800">
 
-    <nav class="bg-black/95 text-white py-4 px-8 flex justify-between items-center sticky top-0 z-50">
+    <nav class="bg-black/90 backdrop-blur-md text-white py-4 px-8 flex justify-between items-center sticky top-0 z-50 border-b border-white/10">
         <div class="flex items-center space-x-2">
-            <span class="text-xl font-bold text-amber-400 italic">👑 Hidden Minang</span>
+            <span class="text-xl font-bold text-amber-400 font-serif italic">Hidden Minang</span>
         </div>
-        <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
-            <a href="#" class="text-amber-400">Home</a>
-            <a href="#hidden-gems" class="hover:text-amber-400">Destination</a>
-            <a href="#" class="hover:text-amber-400">Culture</a>
-            <a href="#culinary" class="hover:text-amber-400">Culinary</a>
-            <a href="#events" class="hover:text-amber-400">Event</a>
-            <a href="#map-section" class="hover:text-amber-400">Map</a>
-            <a href="#" class="hover:text-amber-400">About Us</a>
+        <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+            <a href="#" class="text-amber-400 transition">Home</a>
+            <a href="#hidden-gems" class="hover:text-amber-400 transition">Destination</a>
+            <a href="#culinary" class="hover:text-amber-400 transition">Culinary</a>
+            <a href="#events" class="hover:text-amber-400 transition">Event</a>
+            <a href="#map-section" class="hover:text-amber-400 transition">Map</a>
         </div>
         <div>
-            <i class="fas fa-search cursor-pointer text-gray-400 hover:text-white"></i>
+            <i class="fas fa-search cursor-pointer text-gray-400 hover:text-white transition text-lg"></i>
         </div>
     </nav>
 
-    <header class="relative bg-gray-900 text-white h-[85vh] flex items-center px-8 md:px-16 overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-60 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1626847037657-fd3622613ce3?q=80&w=1920');"></div>
-        <div class="absolute inset-0 bg-gradient-to-r destruction from-black via-black/50 to-transparent z-0"></div>
+    <header class="relative bg-gray-900 text-white h-[80vh] flex items-center px-8 md:px-16 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-70 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1626847037657-fd3622613ce3?q=80&w=1920');"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-0"></div>
         
         <div class="relative z-10 max-w-2xl space-y-6">
-            <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">Discover the <br>Untold Beauty of <br>West Sumatra</h1>
-            <p class="text-gray-300 text-sm md:text-base">Explore hidden gems, rich culture, and authentic experiences that most people never know.</p>
-            <a href="#hidden-gems" class="inline-flex items-center bg-maroon text-white px-6 py-3 rounded-full font-medium hover:bg-red-900 transition shadow-lg">
-                Explore Now <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight drop-shadow-lg">
+                Discover the <br><span class="text-amber-400">Untold Beauty</span> of <br>West Sumatra
+            </h1>
+            <p class="text-gray-200 text-base md:text-lg max-w-lg font-light drop-shadow-md">
+                Explore hidden gems, rich culture, and authentic experiences that most people never know.
+            </p>
+            <a href="#hidden-gems" class="inline-flex items-center bg-maroon text-white px-8 py-3.5 rounded-full font-medium hover-maroon transition-all transform hover:-translate-y-1 shadow-xl">
+                Explore Now <i class="fas fa-arrow-right ml-3"></i>
             </a>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-10">
         
         <div class="lg:col-span-2 space-y-16">
             
             <section id="hidden-gems">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">Hidden Gems for You <span class="text-red-500">*</span></h2>
-                    <a href="#" class="text-xs font-semibold text-gray-500 hover:underline">View All &gt;</a>
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-serif font-bold text-gray-900">Hidden Gems</h2>
+                        <p class="text-gray-500 text-sm mt-1">Destinasi eksotis yang wajib Anda kunjungi.</p>
+                    </div>
+                    <a href="#" class="text-sm font-semibold text-maroon hover:underline">View All <i class="fas fa-chevron-right text-xs ml-1"></i></a>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div onclick="window.location.href='detail.html?wisata=pantai-carolina'" class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer group">
-                        <div class="relative h-44 bg-gray-200">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="Pantai Carolina">
-                            <span class="absolute top-3 left-3 bg-black/60 text-white text-[10px] px-2 py-1 rounded">Hidden Beach</span>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Pantai Carolina">
+                            <span class="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full">Hidden Beach</span>
                         </div>
-                        <div class="p-4">
-                            <h3 class="font-bold text-gray-900">Pantai Carolina</h3>
-                            <div class="flex justify-between items-center mt-1 text-xs text-gray-500">
-                                <span>Padang Pariaman</span>
-                                <span class="text-amber-500 font-semibold"><i class="fas fa-star text-xs"></i> 4.7</span>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-900 group-hover:text-maroon transition-colors">Pantai Carolina</h3>
+                                <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-1 rounded flex items-center"><i class="fas fa-star text-[10px] mr-1"></i> 4.7</span>
                             </div>
+                            <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt text-gray-400 mr-1.5"></i> Padang Pariaman</p>
                         </div>
                     </div>
 
-                    <div onclick="window.location.href='detail.html?wisata=air-terjun-sarasah'" class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer group">
-                        <div class="relative h-44 bg-gray-200">
-                            <img src="https://images.unsplash.com/photo-1432406186174-2b24f4a62977?w=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="Air Terjun Sarasah">
-                            <span class="absolute top-3 left-3 bg-black/60 text-white text-[10px] px-2 py-1 rounded">Waterfall</span>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-gray-100">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1432406186174-2b24f4a62977?w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Air Terjun Sarasah">
+                            <span class="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full">Waterfall</span>
                         </div>
-                        <div class="p-4">
-                            <h3 class="font-bold text-gray-900">Air Terjun Sarasah</h3>
-                            <div class="flex justify-between items-center mt-1 text-xs text-gray-500">
-                                <span>Pesisir Selatan</span>
-                                <span class="text-amber-500 font-semibold"><i class="fas fa-star text-xs"></i> 4.8</span>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-900 group-hover:text-maroon transition-colors">Air Terjun Sarasah</h3>
+                                <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-1 rounded flex items-center"><i class="fas fa-star text-[10px] mr-1"></i> 4.8</span>
                             </div>
+                            <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt text-gray-400 mr-1.5"></i> Pesisir Selatan</p>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="events" class="bg-maroon text-white p-6 rounded-2xl shadow-xl">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold tracking-wide">Upcoming Cultural Events</h2>
-                    <a href="#" class="text-xs text-gray-300 hover:underline">View Calendar &gt;</a>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div class="bg-black/30 p-2 rounded-xl border border-white/10 text-center">
-                        <div class="bg-red-700 text-xs font-bold py-1 rounded mb-2">15 JUN</div>
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=150" class="w-full h-20 object-cover rounded mb-2" alt="Festival Rendang">
-                        <h4 class="text-xs font-bold truncate">Festival Rendang</h4>
-                        <p class="text-[10px] text-gray-300">Padang</p>
-                    </div>
-                    <div class="bg-black/30 p-2 rounded-xl border border-white/10 text-center">
-                        <div class="bg-red-700 text-xs font-bold py-1 rounded mb-2">22 JUN</div>
-                        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=150" class="w-full h-20 object-cover rounded mb-2" alt="Pacu Jawi">
-                        <h4 class="text-xs font-bold truncate">Pacu Jawi</h4>
-                        <p class="text-[10px] text-gray-300">Tanah Datar</p>
-                    </div>
-                    <div class="bg-black/30 p-2 rounded-xl border border-white/10 text-center">
-                        <div class="bg-red-700 text-xs font-bold py-1 rounded mb-2">05 JUL</div>
-                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=150" class="w-full h-20 object-cover rounded mb-2" alt="Tabuik">
-                        <h4 class="text-xs font-bold truncate">Festival Tabuik</h4>
-                        <p class="text-[10px] text-gray-300">Pariaman</p>
-                    </div>
-                    <div class="bg-black/30 p-2 rounded-xl border border-white/10 text-center">
-                        <div class="bg-red-700 text-xs font-bold py-1 rounded mb-2">20 JUL</div>
-                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=150" class="w-full h-20 object-cover rounded mb-2" alt="Marapi">
-                        <h4 class="text-xs font-bold truncate">Festival Marapi</h4>
-                        <p class="text-[10px] text-gray-300">Agam</p>
                     </div>
                 </div>
             </section>
 
             <section id="culinary">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-900">Culinary Explorer</h2>
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-serif font-bold text-gray-900">Taste the Culture</h2>
+                        <p class="text-gray-500 text-sm mt-1">Dari sarapan lokal hingga kultur kopi senja.</p>
+                    </div>
                 </div>
-                <div class="flex space-x-2 overflow-x-auto pb-3 text-xs font-medium">
-                    <button class="bg-maroon text-white px-4 py-1.5 rounded-full shadow-sm">All</button>
-                    <button class="bg-white border text-gray-600 px-4 py-1.5 rounded-full hover:bg-gray-50">Main Course</button>
-                    <button class="bg-white border text-gray-600 px-4 py-1.5 rounded-full hover:bg-gray-50">Snack</button>
-                    <button class="bg-white border text-gray-600 px-4 py-1.5 rounded-full hover:bg-gray-50">Drink</button>
+
+                <div class="flex space-x-3 overflow-x-auto pb-4 text-sm font-medium no-scrollbar">
+                    <button class="bg-maroon text-white px-5 py-2 rounded-full shadow-md whitespace-nowrap">All</button>
+                    <button class="bg-white border border-gray-200 text-gray-600 px-5 py-2 rounded-full hover:bg-gray-50 transition whitespace-nowrap">Breakfast</button>
+                    <button class="bg-white border border-gray-200 text-gray-600 px-5 py-2 rounded-full hover:bg-gray-50 transition whitespace-nowrap">Spicy Food</button>
+                    <button class="bg-white border border-gray-200 text-gray-600 px-5 py-2 rounded-full hover:bg-gray-50 transition whitespace-nowrap">Cafe & Coffee</button>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
-                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                        <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300" class="w-full h-32 object-cover rounded-lg mb-2" alt="Gulai Itiak">
-                        <h4 class="font-bold text-sm text-gray-900">Gulai Itiak Lado Mudo</h4>
-                        <p class="text-[11px] text-gray-500">Agam</p>
-                        <div class="flex justify-between items-center mt-2 text-xs">
-                            <span class="text-amber-500 font-semibold"><i class="fas fa-star"></i> 4.8</span>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400" class="w-full h-36 object-cover rounded-xl mb-3" alt="Lontong Pagi">
+                        <div class="px-1">
+                            <h4 class="font-bold text-gray-900">Lontong Sayur Padang</h4>
+                            <p class="text-xs text-gray-500 mt-1">Sarapan autentik warga lokal</p>
+                            <div class="flex justify-between items-center mt-3 border-t border-gray-50 pt-2">
+                                <span class="text-xs font-semibold text-maroon">Breakfast</span>
+                                <span class="text-amber-500 font-bold text-xs"><i class="fas fa-star"></i> 4.9</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300" class="w-full h-32 object-cover rounded-lg mb-2" alt="Pangek Ikan">
-                        <h4 class="font-bold text-sm text-gray-900">Pangek Ikan</h4>
-                        <p class="text-[11px] text-gray-500">Pesisir Selatan</p>
-                        <div class="flex justify-between items-center mt-2 text-xs">
-                            <span class="text-amber-500 font-semibold"><i class="fas fa-star"></i> 4.7</span>
+                    
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400" class="w-full h-36 object-cover rounded-xl mb-3" alt="Ayam Geprek">
+                        <div class="px-1">
+                            <h4 class="font-bold text-gray-900">Ayam Geprek Lado Mudo</h4>
+                            <p class="text-xs text-gray-500 mt-1">Sensasi pedas yang menggugah</p>
+                            <div class="flex justify-between items-center mt-3 border-t border-gray-50 pt-2">
+                                <span class="text-xs font-semibold text-maroon">Main Course</span>
+                                <span class="text-amber-500 font-bold text-xs"><i class="fas fa-star"></i> 4.8</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=300" class="w-full h-32 object-cover rounded-lg mb-2" alt="Karupuak Sanjai">
-                        <h4 class="font-bold text-sm text-gray-900">Karupuak Sanjai</h4>
-                        <p class="text-[11px] text-gray-500">Padang Panjang</p>
-                        <div class="flex justify-between items-center mt-2 text-xs">
-                            <span class="text-amber-500 font-semibold"><i class="fas fa-star"></i> 4.6</span>
+
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1551030173-122aabc4489c?w=400" class="w-full h-36 object-cover rounded-xl mb-3" alt="Kopi Susu">
+                        <div class="px-1">
+                            <h4 class="font-bold text-gray-900">Es Kopi Susu Aren</h4>
+                            <p class="text-xs text-gray-500 mt-1">Kultur nongkrong & ngopi senja</p>
+                            <div class="flex justify-between items-center mt-3 border-t border-gray-50 pt-2">
+                                <span class="text-xs font-semibold text-maroon">Cafe & Drink</span>
+                                <span class="text-amber-500 font-bold text-xs"><i class="fas fa-star"></i> 4.7</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-
         </div>
 
-        <div class="space-y-8 lg:sticky lg:top-24 h-fit">
+        <div class="space-y-8 lg:sticky lg:top-28 h-fit">
             
-            <section id="map-section" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-md font-bold mb-3 text-gray-900"><i class="fas fa-map-marked-alt text-maroon mr-2"></i>Interactive Map</h3>
+            <section id="map-section" class="bg-white p-5 rounded-2xl shadow-md border border-gray-100">
+                <h3 class="text-lg font-bold mb-4 text-gray-900 flex items-center"><i class="fas fa-map-marked-alt text-maroon mr-2 text-xl"></i> Interactive Map</h3>
                 
-                <div id="map" class="shadow-inner border mb-3"></div>
+                <div id="map" class="border border-gray-200 overflow-hidden mb-4"></div>
 
-                <div class="bg-gray-50 p-3 rounded-xl space-y-2 text-xs">
-                    <span class="font-bold block text-gray-700">Filter Categories:</span>
-                    <label class="flex items-center space-x-2"><input type="checkbox" id="cat-nature" checked class="accent-red-800"> <span>Nature / Waterfalls</span></label>
-                    <label class="flex items-center space-x-2"><input type="checkbox" id="cat-beach" checked class="accent-red-800"> <span>Beaches</span></label>
+                <div class="bg-[#f8f5f1] p-4 rounded-xl space-y-3 text-sm">
+                    <span class="font-bold text-gray-800 block">Filter Categories:</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                            <input type="checkbox" checked class="w-4 h-4 accent-[#7a1c1c] rounded"> <span>Nature</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                            <input type="checkbox" checked class="w-4 h-4 accent-[#7a1c1c] rounded"> <span>Beaches</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                            <input type="checkbox" checked class="w-4 h-4 accent-[#7a1c1c] rounded"> <span>Culture</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                            <input type="checkbox" class="w-4 h-4 accent-[#7a1c1c] rounded"> <span>Culinary</span>
+                        </label>
+                    </div>
                 </div>
             </section>
 
-            <section class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-sm font-bold text-gray-900">Event Calendar</h3>
-                    <span class="text-xs font-semibold text-maroon">June 2026</span>
+            <section class="bg-maroon text-white p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 opacity-10">
+                    <i class="fas fa-calendar-alt text-9xl"></i>
                 </div>
                 
-                <div class="grid grid-cols-7 gap-1 text-center text-xs mb-4">
-                    <span class="font-bold text-gray-400">S</span><span class="font-bold text-gray-400">M</span><span class="font-bold text-gray-400">T</span><span class="font-bold text-gray-400">W</span><span class="font-bold text-gray-400">T</span><span class="font-bold text-gray-400">F</span><span class="font-bold text-gray-400">S</span>
-                    
-                    <span></span>
-                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
-                    <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
-                    <span>14</span><span class="bg-maroon text-white rounded-full font-bold p-1">15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
-                    <span>21</span><span class="bg-maroon text-white rounded-full font-bold p-1">22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
-                    <span>28</span><span>29</span><span>30</span>
-                </div>
-
-                <div class="space-y-3 pt-2 border-t">
-                    <div class="flex items-center space-x-3 text-xs">
-                        <div class="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-gray-900">Festival Rendang</h5>
-                            <p class="text-[10px] text-gray-500"><i class="far fa-calendar-alt"></i> 15 - 17 Juni 2026</p>
-                        </div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-center mb-6 border-b border-white/20 pb-3">
+                        <h3 class="text-lg font-bold tracking-wide">Event Calendar</h3>
+                        <span class="text-sm font-semibold bg-white/20 px-3 py-1 rounded-full">Juni 2026</span>
                     </div>
-                    <div class="flex items-center space-x-3 text-xs">
-                        <div class="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100" class="w-full h-full object-cover">
+                    
+                    <div class="grid grid-cols-7 gap-2 text-center text-xs mb-6">
+                        <span class="font-bold text-white/50">S</span><span class="font-bold text-white/50">M</span><span class="font-bold text-white/50">T</span><span class="font-bold text-white/50">W</span><span class="font-bold text-white/50">T</span><span class="font-bold text-white/50">F</span><span class="font-bold text-white/50">S</span>
+                        
+                        <span class="py-1"></span>
+                        <span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">1</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">2</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">3</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">4</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">5</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">6</span>
+                        <span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">7</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">8</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">9</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">10</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">11</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">12</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">13</span>
+                        <span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">14</span><span class="bg-amber-400 text-black rounded-full font-bold py-1 shadow-md">15</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">16</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">17</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">18</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">19</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">20</span>
+                        <span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">21</span><span class="bg-amber-400 text-black rounded-full font-bold py-1 shadow-md">22</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">23</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">24</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">25</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">26</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">27</span>
+                        <span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">28</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">29</span><span class="py-1 hover:bg-white/10 rounded cursor-pointer transition">30</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 bg-black/20 p-3 rounded-xl hover:bg-black/30 transition cursor-pointer border border-white/5">
+                            <div class="w-12 h-12 bg-white rounded-lg overflow-hidden flex-shrink-0 border-2 border-amber-400">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-white">Festival Rendang</h5>
+                                <p class="text-[11px] text-gray-300 mt-0.5"><i class="far fa-clock mr-1"></i> 15 - 17 Juni 2026</p>
+                            </div>
                         </div>
-                        <div>
-                            <h5 class="font-bold text-gray-900">Pacu Jawi</h5>
-                            <p class="text-[10px] text-gray-500"><i class="far fa-calendar-alt"></i> 22 - 23 Juni 2026</p>
+                        <div class="flex items-center space-x-4 bg-black/20 p-3 rounded-xl hover:bg-black/30 transition cursor-pointer border border-white/5">
+                            <div class="w-12 h-12 bg-white rounded-lg overflow-hidden flex-shrink-0 border-2 border-amber-400">
+                                <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-sm text-white">Pacu Jawi</h5>
+                                <p class="text-[11px] text-gray-300 mt-0.5"><i class="far fa-clock mr-1"></i> 22 - 23 Juni 2026</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,28 +241,39 @@
         </div>
     </main>
 
-    <footer class="bg-stone-100 border-t py-8 px-6 mt-12 text-xs text-gray-600">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div>
-                <i class="fas fa-gem text-lg text-maroon mb-1"></i>
-                <h5 class="font-bold text-gray-900">Hidden Destination</h5>
-                <p class="scale-90 text-gray-500">Tempat tersembunyi yang belum banyak tahu</p>
+    <footer class="bg-white border-t border-gray-200 py-12 px-6 mt-12 text-sm text-gray-600">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="group">
+                <div class="w-12 h-12 mx-auto bg-amber-50 text-maroon rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-gem text-xl"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">Hidden Destination</h5>
+                <p class="text-xs text-gray-500">Tempat tersembunyi yang belum banyak tahu</p>
             </div>
-            <div>
-                <i class="fas fa-users text-lg text-maroon mb-1"></i>
-                <h5 class="font-bold text-gray-900">Local Experience</h5>
-                <p class="scale-90 text-gray-500">Rasakan pengalaman seperti warga lokal</p>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto bg-amber-50 text-maroon rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-users text-xl"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">Local Experience</h5>
+                <p class="text-xs text-gray-500">Rasakan pengalaman seperti warga lokal</p>
             </div>
-            <div>
-                <i class="fas fa-leaf text-lg text-maroon mb-1"></i>
-                <h5 class="font-bold text-gray-900">Sustainable Tourism</h5>
-                <p class="scale-90 text-gray-500">Dukung pariwisata berkelanjutan</p>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto bg-amber-50 text-maroon rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-leaf text-xl"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">Sustainable Tourism</h5>
+                <p class="text-xs text-gray-500">Dukung pariwisata berkelanjutan</p>
             </div>
-            <div>
-                <i class="fas fa-gavel text-lg text-maroon mb-1"></i>
-                <h5 class="font-bold text-gray-900">Culture Preservation</h5>
-                <p class="scale-90 text-gray-500">Lestarikan budaya Minangkabau</p>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto bg-amber-50 text-maroon rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-landmark text-xl"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">Culture Preservation</h5>
+                <p class="text-xs text-gray-500">Lestarikan budaya Minangkabau</p>
             </div>
+        </div>
+        <div class="text-center mt-12 pt-6 border-t border-gray-100 text-xs text-gray-400">
+            &copy; 2026 Hidden Minang. All rights reserved.
         </div>
     </footer>
 
